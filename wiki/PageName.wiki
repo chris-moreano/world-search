@@ -1,0 +1,5 @@
+#summary Puzzles for testing.
+
+= Details =
+
+everything can be found here , puzzles and their solutions 
