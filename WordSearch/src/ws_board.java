@@ -86,8 +86,9 @@ public class ws_board {
 		        checkDown();
 		        
 		        checkDiagonalDownA();
-		        //checkDiagonalDownB();
-		     //checkDiagonalUp();
+		        checkDiagonalDownB();
+		     //checkDiagonalUpA();
+		     //  checkDiagonalUpB()
 		    }
 
 		    public void checkForwards()
@@ -132,7 +133,6 @@ public class ws_board {
 		        {
 		        	// if the word is bigger than the spaces in board , return
 		            if(foundRow+list[currentWord].length > board[0].length -1) 
-		           //// if(foundRow+list[currentWord].length >  0) 
 		            	
 		            	{return;}
 		            if((foundRow + i) == (board.length)) 
@@ -199,6 +199,7 @@ public class ws_board {
 		        
 		        return;
 		    }
+		    // Diagonal that moves from left -> down -> right
 		    public void checkDiagonalDownA()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
@@ -220,24 +221,25 @@ public class ws_board {
 		        return;
 		    }
 
-		    
+		    // Diagonal that moves from right -> up -> left
 		    public void checkDiagonalDownB()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
 		        {
-		            if(foundColumn + i > board.length - 1) return;
-		            if(foundRow + i > board.length - 1) return;
-		            if(list[currentWord][i] != board[foundRow + i][foundColumn + i]) return;
+		            if(foundColumn - i <=  0) return;
+		            if(foundRow - 1 <= 0) return;
+		            if((foundColumn - i)  == ( board.length)) return ; 
+		            if(list[currentWord][i] != board[foundRow - i][foundColumn - i]) return;
 		        }
 		        //if we got to here, update the output
 		        for(int i = 0; i < list[currentWord].length; i++)
 		        {
-		            output[foundRow + i][foundColumn + i] = list[currentWord][i];
+		            output[foundRow - i][foundColumn - i] = list[currentWord][i];
 		        }
 		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn
+		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)
 
-		+1)+")-("+( foundRow +list[currentWord].length)+ "," + (foundColumn + list[currentWord].length ) + ")" );
+		+")-("+( (foundRow -list[currentWord].length) +2)+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")" );
 		        
 		        return;
 		    }
