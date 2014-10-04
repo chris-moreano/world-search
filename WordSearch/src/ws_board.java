@@ -18,7 +18,7 @@ public class ws_board {
 			  for(int j=0; j<temp.tdArray[0].length; j++)
 			    board[i][j]=temp.tdArray[i][j];
 		System.out.println("**Printing*Board**");
-		//System.out.println("**Board Size **" + board +"x" + board[i]);
+		System.out.println("**Board Size **" + board.length +"x" + board[0].length);
 
 		print(board);
 		fillWithSpaces(output);
@@ -83,10 +83,11 @@ public class ws_board {
 		        checkForwards();
 		        checkBackwards();
 		        checkUp();
+		        checkDown();
+		        
 		        checkDiagonalDownA();
 		        //checkDiagonalDownB();
-		        checkDown();
-		        //checkDiagonalUp();
+		     //checkDiagonalUp();
 		    }
 
 		    public void checkForwards()
@@ -121,9 +122,7 @@ public class ws_board {
 		            output[foundRow][foundColumn - i] = list[currentWord][i];
 		        }
 		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ foundRow + "," + foundColumn+")-("+ 
-
-		foundRow + "," + list[currentWord].length + ")" );
+		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)+")-("+ (foundRow+1) +  "," + ((foundColumn - list[currentWord].length)+2) + ")" );
 		        
 		        return;
 		    }
@@ -132,13 +131,25 @@ public class ws_board {
 		        for(int i = 1; i < list[currentWord].length; i++)
 		        {
 		        	// if the word is bigger than the spaces in board , return
-		            if(foundRow+list[currentWord].length > board[0].length) 
+		            if(foundRow+list[currentWord].length > board[0].length -1) 
+		           //// if(foundRow+list[currentWord].length >  0) 
+		            	
 		            	{return;}
+		            if((foundRow + i) == (board.length)) 
+		            {return;}
+		            
+		           // System.out.println(foundRow+i);
+		            //System.out.println(foundColumn);
+		            //System.out.println(board[0].length);
+		            //System.out.println(board[foundRow+i-1][foundColumn]);
+		            //System.out.println(board[0][14]); Prints C
+
+		            //System.out.println(list[currentWord][i]);
 		            //System.out.println(list[currentWord][i] + " " + board[foundRow+i][foundColumn]);
-		            if((list[currentWord][i]) !=  (board[foundRow][foundColumn]))
+		            if((list[currentWord][i]) !=  (board[foundRow+i][foundColumn]))
 		            	{
 		            	//System.out.println(i);
-		            	return;
+		             	return;
 		            	}
 		            
 		           // System.out.println("D"+i);
@@ -184,7 +195,7 @@ public class ws_board {
 		        
 		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)+ 
 
-		")-("+ (list[currentWord].length+1 - foundRow+1) + "," + (foundColumn+1) + ")" );
+		")-("+ ((foundRow-list[currentWord].length)+2) + "," + (foundColumn+1) + ")" );
 		        
 		        return;
 		    }
