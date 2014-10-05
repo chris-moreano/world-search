@@ -86,9 +86,14 @@ public class ws_board {
 		        checkDown();
 		        
 		        checkDiagonalDownA();
+		        checkDiagonalUpA();
+		        // Daisy do the function below , thanks :)
+		        // diagonal  starts at top right, down left
 		        checkDiagonalDownB();
-		     //checkDiagonalUpA();
-		     //  checkDiagonalUpB()
+		        
+		        // Roya + Eya will do this one
+		        // this one starts bottom left , up right
+		    //  checkDiagonalUpB()
 		    }
 
 		    public void checkForwards()
@@ -137,15 +142,7 @@ public class ws_board {
 		            	{return;}
 		            if((foundRow + i) == (board.length)) 
 		            {return;}
-		            
-		           // System.out.println(foundRow+i);
-		            //System.out.println(foundColumn);
-		            //System.out.println(board[0].length);
-		            //System.out.println(board[foundRow+i-1][foundColumn]);
-		            //System.out.println(board[0][14]); Prints C
 
-		            //System.out.println(list[currentWord][i]);
-		            //System.out.println(list[currentWord][i] + " " + board[foundRow+i][foundColumn]);
 		            if((list[currentWord][i]) !=  (board[foundRow+i][foundColumn]))
 		            	{
 		            	//System.out.println(i);
@@ -206,6 +203,9 @@ public class ws_board {
 		        {
 		            if(foundColumn + i > board.length - 1) return;
 		            if(foundRow + i > board.length - 1) return;
+		            //if(foundRow - i < 0 ) return;
+		            
+		            //System.out.println(board[28][2]);
 		            if(list[currentWord][i] != board[foundRow + i][foundColumn + i]) return;
 		        }
 		        //if we got to here, update the output
@@ -222,7 +222,7 @@ public class ws_board {
 		    }
 
 		    // Diagonal that moves from right -> up -> left
-		    public void checkDiagonalDownB()
+		    public void checkDiagonalUpA()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
 		        {
@@ -242,6 +242,27 @@ public class ws_board {
 		+")-("+( (foundRow -list[currentWord].length) +2)+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")" );
 		        
 		        return;
+		    }
+		    ///// goes from top right , moves down right
+		    public void checkDiagonalDownB()
+		    {
+		        for(int i = 1; i < list[currentWord].length; i++)
+		        {
+		        	if(foundColumn + i > list[currentWord].length) return;
+		        	if(foundRow - i <= 0) return ;
+		            if(list[currentWord][i] != board[foundRow - i][foundColumn + i]) return;
+		        }
+		        //if we got to here, update the output
+		        for(int i = 0; i < list[currentWord].length; i++)
+		        {
+		            output[foundRow - i][foundColumn + i] = list[currentWord][i];
+		        }
+		        
+		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)
+
+		+")-("+( (foundRow -list[currentWord].length) +2)+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")" );
+		        
+		        return;		    	
 		    }
 		    public void print(char [][] b)
 		    {
