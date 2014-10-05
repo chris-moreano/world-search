@@ -1,22 +1,23 @@
 
 public class ws_board {
 
-	public char[][] list;
-	public char[][] board;
-	public char[][] output;
-	public int currentWord;
-	public int foundRow;
-	public int foundColumn;
+	public char[][] list;	// Keywords are stored here
+	public char[][] board;	// Board is stored here
+	public char[][] output; // Solved Puzzle is stored here
+	public int currentWord; // Address of current word
+	public int foundRow;	// Address of found Row
+	public int foundColumn;	// Address of found Column
 	
 	public ws_board(String file)
 	{
 		LoadFile temp = new LoadFile(file);
-		//board = temp.tdArray.length;
 		board = new char[temp.grid_row][temp.grid_columns];
 		output = new char[temp.grid_row][temp.grid_columns]; 
+		
 		for(int i=0; i<temp.tdArray.length; i++)
 			  for(int j=0; j<temp.tdArray[0].length; j++)
 			    board[i][j]=temp.tdArray[i][j];
+		
 		System.out.println("**Printing*Board**");
 		System.out.println("**Board Size **" + board.length +"x" + board[0].length);
 
@@ -35,65 +36,45 @@ public class ws_board {
 	        }
      	//System.out.println();
     	System.out.println("\n**Printing*Findings**");
-
-		 for(int i = 0; i < list.length; i++)
-			{        
-			    currentWord = i;  
-				for(int r = 0; r < board.length; r++)
-			        {
-			        for(int c = 0; c < board[0].length; c++)
-			            {
-			                if(list[currentWord][0] == board[r][c])
-			                {
-			                    foundRow = r;
-			                    foundColumn = c;
-			                    checkEachDirection();
-			                }
-			            }
-			        }
-			}
-			        //System.out.println(list[3][3]);
-			       // System.out.println(board[1][0]);
-			        
+    	
+    	findFirstLetter();
+      
 			System.out.println("==Printing Output==");
 
 			       print(output);
 		    }
 
 
-		    public boolean findFirstLetter()
+		    public void findFirstLetter()
 		    {
-		        for(int r = 0; r < board.length; r++)
-		        {
-		        for(int c = 0; c < board[0].length; c++)
-		            {
-		                if(list[currentWord][0] == board[r][c])
-		                {
-		                    foundRow = r;
-		                    foundColumn = c;
-		                    return true;
-		                }
-		            }
-		        }
-		        return false;
+				 for(int i = 0; i < list.length; i++)
+					{        
+					    currentWord = i;  
+						for(int r = 0; r < board.length; r++)
+					        {
+					        for(int c = 0; c < board[0].length; c++)
+					            {
+					                if(list[currentWord][0] == board[r][c])
+					                {
+					                    foundRow = r;
+					                    foundColumn = c;
+					                    checkEachDirection();
+					                }
+					            }
+					        }
+					}
 		    }
 
 		    public void checkEachDirection()
 		    {
-		        checkForwards();
-		        checkBackwards();
-		        checkUp();
-		        checkDown();
-		        
-		        checkDiagonalDownA();
-		        checkDiagonalUpA();
-		        // Daisy do the function below , thanks :)
-		        // diagonal  starts at top right, down left
-		        checkDiagonalDownB();
-		        
-		        // Roya + Eya will do this one
-		        // this one starts bottom left , up right
-		    //  checkDiagonalUpB()
+		        checkForwards();		// Checks from West to East
+		        checkBackwards();		// Checks from Right to Left
+		        checkUp();		    	// Checks from South to North
+		        checkDown();			// Checks from North to South	        
+		        checkDiagonalDownA();	// Checks towards Southeast
+		        checkDiagonalUpA();		// Checks towards Northwest
+		        checkDiagonalDownB();	// Checks towards Southwest
+		        //checkDiagonalUpB();		// Checks towards Northeast
 		    }
 
 		    public void checkForwards()
@@ -264,6 +245,29 @@ public class ws_board {
 		        
 		        return;		    	
 		    }
+		    
+			public void checkDiagonalUpB()
+			{
+				for(int i = 1; i < list[currentWord].length; i++)
+				{
+					//if(foundColumn - i <=  0) return;
+					if(foundRow <= 0) return;
+					if((foundColumn + i)  >= ( board.length)) return ; 
+					if((foundRow - i)  >= ( board.length)) return ; 
+					if(list[currentWord][i] != board[foundRow - i][foundColumn + i]) return;
+				}
+				for(int i = 0; i < list[currentWord].length; i++)
+				{
+					output[foundRow - i][foundColumn + i] = list[currentWord][i];
+				}
+				System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn
+
+						+1)+")-("+( foundRow - list[currentWord].length + 2)+  "," + (foundColumn - list[currentWord].length + 2) +")" );
+
+				return;
+			}
+/**
+ */
 		    public void print(char [][] b)
 		    {
 		        for(int i = 0; i < b.length; i++)
