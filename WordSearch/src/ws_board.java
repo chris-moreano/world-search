@@ -242,7 +242,7 @@ public class ws_board {
 		        
 		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)
 
-		+")-("+( (foundRow -list[currentWord].length) +2)+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")" );
+		+")-("+( (foundRow + list[currentWord].length))+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")" );
 		        
 		        return;		    	
 		    }
@@ -263,7 +263,7 @@ public class ws_board {
 				}
 				System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn
 
-						+1)+")-("+( foundRow - list[currentWord].length + 2)+  "," + (foundColumn - list[currentWord].length + 2) +")" );
+						+1)+")-("+( foundRow - list[currentWord].length + 2)+  "," + ((foundColumn - list[currentWord].length) + 2) +")" );
 
 				return;
 			}
