@@ -1,13 +1,32 @@
 
+/**
+ *  This class displays the board and the words that need to be found on the screen.
+ * It then looks for the words in the board in every direction (Horizontal, Diagonal and Vertical)
+ * and displays the location where the word was found on the screen.
+ * 
+ * @author  Christian Moreano
+ * @author	Daisy Medina
+ * @author	Eya Badal Abdisho
+ * @author	Roya Delparastaran
+ */
+
 public class ws_board {
 
-	public char[][] list;	// Keywords are stored here
-	public char[][] board;	// Board is stored here
-	public char[][] output; // Solved Puzzle is stored here
-	public int currentWord; // Address of current word
-	public int foundRow;	// Address of found Row
-	public int foundColumn;	// Address of found Column
-	
+	public char[][] list;		// Keywords are stored here
+	public char[][] board;		// Board is stored here
+	public char[][] output;	    // Solved Puzzle is stored here
+	public int currentWord; 	// Address of current word
+	public int foundRow;		// Address of found Row
+	public int foundColumn;		// Address of found Column
+	public String myString = "";// String of Addresses
+
+	/**
+	 * Constructor creates a new file to be read
+	 * and prints the list of the words that we 
+	 * need to look for and find in a particular
+	 * puzzle.
+	 * @param file The file that needs to be read
+	 */
 	public ws_board(String file)
 	{
 		LoadFile temp = new LoadFile(file);
@@ -44,6 +63,11 @@ public class ws_board {
 			       print(output);
 		    }
 
+	/** 
+	 * This method finds the first letter of each word in the puzzle
+	 *  and saves the location (row and column) of the letter.
+	 * 
+	 */
 
 		    public void findFirstLetter()
 		    {
@@ -62,9 +86,16 @@ public class ws_board {
 					                }
 					            }
 					        }
+						
+						System.out.println(String.valueOf(list[currentWord])+": " + myString);
+						myString = new String();
 					}
 		    }
-
+			/** 
+			 * This method calls all the methods that check
+			 * every direction (8 directions total) in the 
+			 * puzzle to find the word that we are looking for.
+			 */
 		    public void checkEachDirection()
 		    {
 		        checkForwards();		// Checks from West to East
@@ -76,7 +107,11 @@ public class ws_board {
 		        checkDiagonalDownB();	// Checks towards Southwest
 		        checkDiagonalUpB();		// Checks towards Northeast
 		    }
-
+			/** 
+			 * This method checks to see if a word is on the board in a forward
+			 * direction (from left to right)
+			 * 
+			 */
 		    public void checkForwards()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
@@ -89,13 +124,16 @@ public class ws_board {
 		        {
 		            output[foundRow][foundColumn + i] = list[currentWord][i];
 		        }
-		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1) + ")-("+ 
 
-		(foundRow+1) + "," + (foundColumn + list[currentWord].length) +")" );
+		        myString = myString + "[("+ (foundRow+1) + "," + (foundColumn+1) + ")-("+ 
+
+		(foundRow+1) + "," + (foundColumn + list[currentWord].length) +")]";
 		        return;
 		    }
-
+			/** This method checks to see if a word is on the board in a backward
+			 * direction (from right to left)
+			 * 
+			 */
 		    public void checkBackwards()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
@@ -109,10 +147,18 @@ public class ws_board {
 		            output[foundRow][foundColumn - i] = list[currentWord][i];
 		        }
 		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)+")-("+ (foundRow+1) +  "," + ((foundColumn - list[currentWord].length)+2) + ")" );
+		        //System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)+")-("+ (foundRow+1) +  "," + ((foundColumn - list[currentWord].length)+2) + ")" );
 		        
+		        myString = myString + "[("+ (foundRow+1) + "," + (foundColumn+1)+")-("+ (foundRow+1) +  "," + ((foundColumn - list[currentWord].length)+2) + ")]";
+
 		        return;
 		    }
+		    
+			/** 
+			 * This method checks to see if a word is on the board in a downward
+			 * direction (from top to bottom)
+			 * 
+			 */
 		    public void checkDown()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
@@ -139,13 +185,17 @@ public class ws_board {
 		            output[foundRow + i][foundColumn]= list[currentWord][i];
 		           // System.out.println(foundRow + "-" + foundColumn);
 		        }
-		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)+ 
+	
+		        myString = myString  + "[("+ (foundRow+1) + "," + (foundColumn+1)+ 
 
-		")-("+ (foundRow +list[currentWord].length) + "," + (foundColumn+1) + ")" );
-		        
+		        		")-("+ (foundRow +list[currentWord].length) + "," + (foundColumn+1) + ")]";
 		        return;
 		    }
+		    
+			/** This method checks to see if a word is on the board in an upward
+			 * direction (from bottom to top)
+			 * 
+			 */
 		    
 		    public void checkUp()
 		    {
@@ -170,14 +220,16 @@ public class ws_board {
 		            output[foundRow - i][foundColumn]= list[currentWord][i];
 		           // System.out.println(foundRow + "-" + foundColumn);
 		        }
-		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)+ 
+		    myString = myString  + "[("+ (foundRow+1) + "," + (foundColumn+1)+ 
 
-		")-("+ ((foundRow-list[currentWord].length)+2) + "," + (foundColumn+1) + ")" );
-		        
+		")-("+ ((foundRow-list[currentWord].length)+2) + "," + (foundColumn+1) + ")]";
 		        return;
 		    }
 		    // Diagonal that moves from left -> down -> right
+			/** This method checks to see if a word is on the board in a diagonal
+			 * direction (from top left to bottom right)
+			 * left -> down -> right
+			 */
 		    public void checkDiagonalDownA()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
@@ -195,14 +247,20 @@ public class ws_board {
 		            output[foundRow + i][foundColumn + i] = list[currentWord][i];
 		        }
 		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn
+		    
+		        myString = myString  + "[("+ (foundRow+1) + "," + (foundColumn
 
-		+1)+")-("+( foundRow +list[currentWord].length)+ "," + (foundColumn + list[currentWord].length ) + ")" );
-		        
+		        		+1)+")-("+( foundRow +list[currentWord].length)+ "," + (foundColumn + list[currentWord].length ) + ")]";
+		        		        
 		        return;
 		    }
 
+		    
 		    // Diagonal that moves from right -> up -> left
+			/** This method checks to see if a word is on the board in a diagonal
+			 * direction (from bottom right to top left)
+			 * right -> up -> left
+			 */
 		    public void checkDiagonalUpA()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
@@ -218,13 +276,18 @@ public class ws_board {
 		            output[foundRow - i][foundColumn - i] = list[currentWord][i];
 		        }
 		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)
+		       myString = myString  + "[("+ (foundRow+1) + "," + (foundColumn+1)
 
-		+")-("+( (foundRow -list[currentWord].length) +2)+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")" );
-		        
+		        		+")-("+( (foundRow -list[currentWord].length) +2)+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")]" ;
+		        		       
 		        return;
 		    }
 		    ///// goes from top right , moves down right
+		    
+			/** This method checks to see if a word is on the board in a diagonal
+			 * direction (from top right to bottom left)
+			 * right -> down -> left
+			 */
 		    public void checkDiagonalDownB()
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
@@ -240,13 +303,18 @@ public class ws_board {
 		            output[foundRow + i][foundColumn - i] = list[currentWord][i];
 		        }
 		        
-		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)
+		       myString = myString  + "[("+ (foundRow+1) + "," + (foundColumn+1)
 
-		+")-("+( (foundRow + list[currentWord].length))+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")" );
-		        
+		        		+")-("+( (foundRow + list[currentWord].length))+ "," + ((foundColumn - list[currentWord].length ) +2)+ ")]" ;
+		        		       
 		        return;		    	
 		    }
 		    
+		    
+			/** This method checks to see if a word is on the board in a diagonal
+			 * direction (from bottom left to top right)
+			 * left -> up -> right
+			 */
 			public void checkDiagonalUpB()
 			{
 				for(int i = 1; i < list[currentWord].length; i++)
@@ -261,9 +329,10 @@ public class ws_board {
 				{
 					output[foundRow - i][foundColumn + i] = list[currentWord][i];
 				}
-				System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn
+				
+				myString = myString  + "[("+ (foundRow+1) + "," + (foundColumn
 
-						+1)+")-("+( foundRow - list[currentWord].length + 2)+  "," + ((foundColumn - list[currentWord].length) + 2) +")" );
+						+1)+")-("+( foundRow - list[currentWord].length + 2)+  "," + ((foundColumn - list[currentWord].length) + 2) +")]" ;
 
 				return;
 			}
