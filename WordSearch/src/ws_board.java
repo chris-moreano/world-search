@@ -74,7 +74,7 @@ public class ws_board {
 		        checkDiagonalDownA();	// Checks towards Southeast
 		        checkDiagonalUpA();		// Checks towards Northwest
 		        checkDiagonalDownB();	// Checks towards Southwest
-		        //checkDiagonalUpB();		// Checks towards Northeast
+		        checkDiagonalUpB();		// Checks towards Northeast
 		    }
 
 		    public void checkForwards()
@@ -229,14 +229,15 @@ public class ws_board {
 		    {
 		        for(int i = 1; i < list[currentWord].length; i++)
 		        {
-		        	if(foundColumn + i > list[currentWord].length) return;
-		        	if(foundRow - i <= 0) return ;
-		            if(list[currentWord][i] != board[foundRow - i][foundColumn + i]) return;
+					if((foundRow + i)  >= ( board.length)) return ; 		        	
+					if(foundColumn- i  >= board.length) return;
+					if(foundColumn - i < 0 ) return;
+		            if(list[currentWord][i] != board[foundRow + i][foundColumn - i]) return;
 		        }
 		        //if we got to here, update the output
 		        for(int i = 0; i < list[currentWord].length; i++)
 		        {
-		            output[foundRow - i][foundColumn + i] = list[currentWord][i];
+		            output[foundRow + i][foundColumn - i] = list[currentWord][i];
 		        }
 		        
 		        System.out.println(String.valueOf(list[currentWord]) + " was found @ ("+ (foundRow+1) + "," + (foundColumn+1)
@@ -251,7 +252,7 @@ public class ws_board {
 				for(int i = 1; i < list[currentWord].length; i++)
 				{
 					//if(foundColumn - i <=  0) return;
-					if(foundRow <= 0) return;
+					if(foundRow -i < 0) return;
 					if((foundColumn + i)  >= ( board.length)) return ; 
 					if((foundRow - i)  >= ( board.length)) return ; 
 					if(list[currentWord][i] != board[foundRow - i][foundColumn + i]) return;
