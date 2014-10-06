@@ -37,30 +37,29 @@ public class ws_board {
 			  for(int j=0; j<temp.tdArray[0].length; j++)
 			    board[i][j]=temp.tdArray[i][j];
 		
-		System.out.println("**Printing*Board**");
-		System.out.println("**Board Size **" + board.length +"x" + board[0].length);
+		//System.out.println("**Printing*Board**");
+		//System.out.println("**Board Size **" + board.length +"x" + board[0].length);
 
-		print(board);
+		//print(board);
 		fillWithSpaces(output);
 		list =  new char[temp.wordList.length][];
 		
-    	System.out.println("**Printing*Word*List**");
+    	//System.out.println("**Printing*Word*List**");
 
 		 for(int i = 0; i <temp.wordList.length; i++)
 	        { 
 			 	
 	        	list[i] = temp.wordList[i];
-	        	System.out.print(list[i]);
-	        	System.out.print(" ");
+	        	//System.out.print(list[i]);
+	        	//System.out.print(" ");
 	        }
-     	//System.out.println();
-    	System.out.println("\n**Printing*Findings**");
+    	//System.out.println("\n**Printing*Findings**");
     	
     	findFirstLetter();
       
-			System.out.println("==Printing Output==");
+			//System.out.println("==Printing Output==");
 
-			       print(output);
+			      // print(output);
 		    }
 
 	/** 
@@ -332,7 +331,7 @@ public class ws_board {
 				
 				myString = myString  + "[("+ (foundRow+1) + "," + (foundColumn
 
-						+1)+")-("+( foundRow - list[currentWord].length + 2)+  "," + ((foundColumn - list[currentWord].length) + 2) +")]" ;
+						+1)+")-("+( foundRow - list[currentWord].length + 2)+  "," + ((foundColumn + list[currentWord].length) ) +")]" ;
 
 				return;
 			}
