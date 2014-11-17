@@ -1,27 +1,42 @@
-import java.util.Scanner;
 
 
+ 
+/**
+ * 
+ */
 public class heapTest {
+ 
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Heap<Integer> hp = new Heap<Integer>();
+		TextReader temp = new TextReader("input.txt");
+		ScriptReader temp2 = new ScriptReader("script.txt");
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Heap<Integer> hp = new Heap<Integer>();
-		Scanner sc = new Scanner( System.in);
-		System.out.println("Enter next int or 'done'");
-		String line = sc.next();
-		while(!line.equals("done"))
+		// FETCH NUMBERS FROM input.txt
+		for( int i = 0 ; i < temp.numeros.size();i++)
 		{
-			hp.inser(Integer.parseInt(line));
-			System.out.println(hp);
-			System.out.println("Enter next int or 'done'");
-			line = sc.next();
+			hp.insert(temp.numeros.get(i));
 		}
 		
-		while(!hp.isEmpty())
+		
+		
+		//System.out.println(temp2.script.size());
+		for( int i = 0; i < temp2.script.size(); i++)
 		{
-			int max = hp.delete();
-			System.out.println(max +" " + hp);
+		// FETCH INSTRUCTIONS FROM script.txt
+			if((temp2.script.get(i).getCMD()).equals("insert"))
+			{
+				hp.insert(temp2.script.get(i).getParam());
+			}
 		}
-	}
+		
+		
+		System.out.println(hp);
+        
 
+    }
+ 
 }
