@@ -2,28 +2,33 @@
 
 public class Commands {
     private String command;	//	INSTRUCTIONS
-    private int firstP;		//	PARAMETER ONE
-    private int secondP;	// 	PARAMETER TWO
+    private String firstP;		//	PARAMETER ONE
+    private String secondP;	// 	PARAMETER TWO
 
-    public Commands(String cmd, int node, int change)
+    public Commands(String cmd, String node, String change)
     {
         this.command = cmd; 
         this.firstP = node;
         this.secondP = change;
     }
     
-    public Commands(String cmd, int node)
+    public Commands(String cmd, String node)
     {
         this.command = cmd; 
         this.firstP = node;
     }
+    
+    public Commands(String cmd)
+    {
+    	this.command = cmd;
+    }
 
-    public int getParam()
+    public String getParam()
     {
         return firstP;
     }
     
-    public int getParamTwo()
+    public String getParamTwo()
     {
         return secondP;
     }

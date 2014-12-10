@@ -22,48 +22,40 @@ public class ScriptReader {
 	           
 	            while ((line = reader.readLine()) != null) 
 	            {
+	            	// Strip everything thats not a char or number
+	            	// i.e... ( , ) 
 	            	line = line.replaceAll("[^a-zA-Z0-9]"," ");
 	                String[] components = line.split(" ");
 	                
 	              
 	                if(components[0].equals("insert"))
 	                {
-	                    script.add(new Commands(components[0], Integer.parseInt(components[1]), 0));
-
+	                    script.add(new Commands(components[0],components[1]));
 	                }
 	                
-	                
-	                else if(components[0].equals("deleteMin"))
+	                 if(components[0].equals("decreaseKey"))
 	                {
-	                    script.add(new Commands(components[0], Integer.parseInt(components[1]), Integer.parseInt(components[2])));
+	                    script.add(new Commands(components[0], components[1],components[2]));
 
 	                }
+	                 
+	                  if(components[0].equals("increaseKey"))
+		                {
+		                    script.add(new Commands(components[0],components[1],components[2]));
+
+		                }
 	                
+	                 if(components[0].equals("deleteMin"))
+	                {
+	                    script.add(new Commands(components[0]));
+	                }
 	                
+	              
+	                 if(components[0].equals("delete"))
+	                {
+	                    script.add(new Commands(components[0], components[1]));
+	                }
 	               
-	                else if(components[0].equals("decreaseKey"))
-	                {
-	                    script.add(new Commands(components[0], Integer.parseInt(components[1]),Integer.parseInt(components[2])));
-
-	                }
-	                
-	                        
-	                else if(components[0].equals("increase"))
-	                {
-	                    script.add(new Commands(components[0], Integer.parseInt(components[1]),Integer.parseInt(components[2])));
-
-	                }
-	                
-	                
-	                
-	                else if(components[0].equals("delete"))
-	                {
-	                    script.add(new Commands(components[0], Integer.parseInt(components[1]), 0));
-
-	                }
-	                
-	                else
-	                	System.out.println("Unknown Command");
 	                
 	            }		
 		}
@@ -72,5 +64,18 @@ public class ScriptReader {
 		{
 			e.printStackTrace();
 		}
-	}	
+		
+
+	}
+
+	 public static boolean isNumeric(String s) 
+	 	{  
+		 	if(true == s.matches("\\d+"))
+		 		return true; 
+		 	else
+		 		System.out.println(s + " is not a number");
+		 		return false;
+	    }  
+
+		
 }
