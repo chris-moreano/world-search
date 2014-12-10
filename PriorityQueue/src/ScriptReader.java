@@ -22,21 +22,49 @@ public class ScriptReader {
 	           
 	            while ((line = reader.readLine()) != null) 
 	            {
+	            	line = line.replaceAll("[^a-zA-Z0-9]"," ");
 	                String[] components = line.split(" ");
 	                
+	              
 	                if(components[0].equals("insert"))
 	                {
 	                    script.add(new Commands(components[0], Integer.parseInt(components[1]), 0));
 
 	                }
 	                
-	                /*
-	                if(components[0].equals("decrease"))
+	                
+	                else if(components[0].equals("deleteMin"))
+	                {
+	                    script.add(new Commands(components[0], Integer.parseInt(components[1]), Integer.parseInt(components[2])));
+
+	                }
+	                
+	                
+	               
+	                else if(components[0].equals("decreaseKey"))
+	                {
+	                    script.add(new Commands(components[0], Integer.parseInt(components[1]),Integer.parseInt(components[2])));
+
+	                }
+	                
+	                        
+	                else if(components[0].equals("increase"))
+	                {
+	                    script.add(new Commands(components[0], Integer.parseInt(components[1]),Integer.parseInt(components[2])));
+
+	                }
+	                
+	                
+	                
+	                else if(components[0].equals("delete"))
 	                {
 	                    script.add(new Commands(components[0], Integer.parseInt(components[1]), 0));
 
 	                }
-	                */
+	                
+	                else
+	                	System.out.println("Unknown Command");
+	                
 	            }		
 		}
 		

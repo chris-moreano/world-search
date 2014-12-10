@@ -2,22 +2,29 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
  
 /**
- * @author Grey aliens from the zeta reticuli star system
+ * @author Christian Moreano
+ * 		   Roya Del Parastaran
+ * 		   Eya Badal
+ * 		   Daisy Medina
  */
 public class Heap<T extends Comparable<T>> {
      
-    private ArrayList<T> items;
+	// ArrayList of type "Integer" , for use of Comparable class
+    private ArrayList<Integer> items;
      
+    // Instantiate new ArrayList
     public Heap() {
-        items = new ArrayList<T>();
+        items = new ArrayList<Integer>();
     }
-         
+    
+    // Method that moves element if parent > child
     private void ShiftUp() {
+    	
         int k = items.size() - 1;
         while (k > 0) {//
             int p = (k-1)/2;
-            T item = items.get(k);
-            T parent = items.get(p);
+            Integer item = items.get(k);
+            Integer parent = items.get(p);
             if (item.compareTo(parent) < 0) {//
                 // swap
                 items.set(k, parent);
@@ -31,11 +38,7 @@ public class Heap<T extends Comparable<T>> {
         }
     }
      
-    public void insert(T item) {
-        items.add(item);
-        ShiftUp();
-    }
-     
+    // Method that moves element if parent < child
     private void ShiftDown() {
         int k = 0;
         int l = 2*k+1;
@@ -48,7 +51,7 @@ public class Heap<T extends Comparable<T>> {
             }
             if (items.get(k).compareTo(items.get(max)) > 0) {
                     // switch
-                    T temp = items.get(k);
+                    Integer temp = items.get(k);
                     items.set(k, items.get(max));
                     items.set(max, temp);
                     k = max;
@@ -58,8 +61,16 @@ public class Heap<T extends Comparable<T>> {
             }
         }
     }
-     
-    public T delete() 
+
+    // Insert Item to the end
+    public void insert(Integer item) {
+        items.add(item);
+        ShiftUp();
+    }
+    
+    // Delete Root from Heap
+    public int deleteMin() 
+    
     throws NoSuchElementException {
         if (items.size() == 0) {
             throw new NoSuchElementException();
@@ -67,12 +78,42 @@ public class Heap<T extends Comparable<T>> {
         if (items.size() == 1) {
             return items.remove(0);
         }
-        T hold = items.get(0);
+        Integer hold = items.get(0);
+        // Set the root to the last element in tree , then shift down
         items.set(0, items.remove(items.size()-1));
         ShiftDown();
         return hold;
     }
+    
+    // Decrease Key @ Location 
+    public void decreaseKey(int location , int change)
+    {
+    	items.set((location-1),((items.get(location-1))-change));
+    	ShiftUp();
+    }
  
+    // Increase Key @ Location
+    public void increaseKey(int location , int change)
+    {
+    	items.set((location-1),((items.get(location-1))+change));
+    	ShiftDown();
+    }
+    
+    // Search & Delete Element
+    public void delete(int item )
+    {
+    	for(int i = 0 ; i < items.size() ; i++ )
+    	{
+    	   if(item == items.get(items.size()-1))
+    	   {items.remove(item);}
+    	   if(item == items.get(i))
+    	   {
+    		   items.set(i, items.remove(items.size()-1));
+    		   ShiftDown();
+    	   }
+    	}
+    }
+    
     public int size() {
         return items.size();
     }
