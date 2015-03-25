@@ -1,0 +1,3 @@
+# Details #
+
+everything can be found here , puzzles and their solutions http://www.puzzle-club.com/free-printable-word-searches-themes1.html
